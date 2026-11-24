@@ -1,0 +1,787 @@
+---
+import { siteConfig } from '../config';
+import IconArrow from './IconArrow.astro';
+---
+
+<form
+  class="contact-form"
+  data-contact-form
+  data-endpoint={siteConfig.formEndpoint}
+  data-endpoint-key={siteConfig.formEndpointKey}
+  novalidate
+>
+  <div class="form__head">
+    <p class="eyebrow">Consulta</p>
+    <p class="form__note">Todos los campos son obligatorios</p>
+  </div>
+
+  <div class="form__grid">
+    <div class="field" data-field="name">
+      <label for="name">Nombre y apellido</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        placeholder="Tu nombre"
+        required
+        aria-describedby="name-error"
+      />
+      <p class="field__error" id="name-error" data-error-for="name" hidden></p>
+    </div>
+
+    <div class="field" data-field="business">
+      <label for="business">Nombre del negocio</label>
+      <input
+        id="business"
+        name="business"
+        type="text"
+        autocomplete="organization"
+        placeholder="Tu negocio"
+        required
+        aria-describedby="business-error"
+      />
+      <p class="field__error" id="business-error" data-error-for="business" hidden></p>
+    </div>
+
+    <div class="field" data-field="email">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        placeholder="tu@email.com"
+        required
+        aria-describedby="email-error"
+      />
+      <p class="field__error" id="email-error" data-error-for="email" hidden></p>
+    </div>
+
+    <div class="field" data-field="whatsapp">
+      <label for="whatsapp">WhatsApp</label>
+      <input
+        id="whatsapp"
+        name="whatsapp"
+        type="tel"
+        autocomplete="tel"
+        inputmode="tel"
+        placeholder="+54 9 11 0000 0000"
+        required
+        aria-describedby="whatsapp-error"
+      />
+      <p class="field__error" id="whatsapp-error" data-error-for="whatsapp" hidden></p>
+    </div>
+
+    <div class="field field--full" data-field="service">
+      <label for="service">¿Qué servicio te interesa?</label>
+      <div class="select-wrap">
+        <select id="service" name="service" required aria-describedby="service-error">
+          <option value="" disabled selected>Seleccioná una opción</option>
+          <option value="Landing Page">Landing Page</option>
+          <option value="Sitio web institucional">Sitio web institucional</option>
+          <option value="Tienda online">Tienda online</option>
+          <option value="Tienda online premium">Tienda online premium</option>
+          <option value="Google Business Profile">Google Business Profile</option>
+          <option value="Automatizaciones Google">Automatizaciones Google</option>
+          <option value="No estoy seguro">No estoy seguro</option>
+        </select>
+        <span class="select-wrap__chevron" aria-hidden="true"></span>
+      </div>
+      <p class="field__error" id="service-error" data-error-for="service" hidden></p>
+    </div>
+
+    <fieldset
+      class="field field--full"
+      data-field="features"
+      aria-describedby="features-error"
+    >
+      <legend>¿Qué funcionalidades necesitás?</legend>
+      <div class="radio-group">
+        <label class="radio">
+          <input type="checkbox" name="features" value="Reservas online" />
+          <span>Reservas online</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Google Calendar" />
+          <span>Google Calendar</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Google Sheets" />
+          <span>Google Sheets</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Google Forms" />
+          <span>Google Forms</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Google Apps Script" />
+          <span>Google Apps Script</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Otras integraciones" />
+          <span>Otras integraciones</span>
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="features" value="Necesito asesoramiento" />
+          <span>Necesito asesoramiento</span>
+        </label>
+      </div>
+      <p class="field__error" id="features-error" data-error-for="features" hidden></p>
+    </fieldset>
+
+    <div class="field field--full" data-field="message">
+      <label for="message">Mensaje</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        placeholder="Contame qué hacés y qué querés mejorar."
+        required
+        aria-describedby="message-error"
+      ></textarea>
+      <p class="field__error" id="message-error" data-error-for="message" hidden></p>
+    </div>
+  </div>
+
+  <div class="honeypot" aria-hidden="true">
+    <label for="company">No completar</label>
+    <input id="company" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="form__actions">
+    <p class="form__privacy">
+      Tu información se usa únicamente para responder tu consulta.
+    </p>
+    <button class="button button--solid form__submit" type="submit" data-submit>
+      <span data-submit-label>Enviar consulta</span>
+      <span class="spinner" aria-hidden="true"></span>
+      <IconArrow direction="right" class="form__arrow" />
+    </button>
+  </div>
+
+  <p class="form__status" data-form-status role="status" aria-live="polite"></p>
+</form>
+
+<div class="form-success" data-form-success hidden tabindex="-1">
+  <p class="eyebrow">Consulta enviada</p>
+  <h3>Gracias, <em data-success-name></em>.</h3>
+  <p>Recibí tu consulta y te voy a responder a la brevedad.</p>
+  <button type="button" class="text-link" data-form-reset>Enviar otra consulta</button>
+</div>
+
+<style>
+  .contact-form {
+    padding-top: 0.25rem;
+  }
+
+  .form__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+    color: var(--ink-3);
+  }
+
+  .form__note {
+    font-size: var(--text-xs);
+    letter-spacing: 0.02em;
+  }
+
+  .form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 2rem;
+    margin-top: 1.75rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .field--full {
+    grid-column: 1 / -1;
+  }
+
+  .field label,
+  .field legend {
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #cfccc6;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.55rem 0 0.7rem;
+    color: var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover {
+    border-bottom-color: var(--ink-2);
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+    border-bottom-color: var(--ink);
+    box-shadow: 0 1px 0 0 var(--ink);
+  }
+
+  .field ::placeholder {
+    color: var(--ink-4);
+    opacity: 1;
+  }
+
+  .field textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .field [aria-invalid='true'] {
+    border-bottom-color: var(--error);
+    box-shadow: 0 1px 0 0 var(--error);
+  }
+
+  .field__error {
+    color: var(--error);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.15rem;
+  }
+
+  .radio {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.62rem 0.9rem;
+    border: 1px solid var(--line);
+    font-size: 0.875rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background-color 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out),
+      color 0.3s var(--ease-out);
+  }
+
+  .radio:hover {
+    border-color: var(--ink);
+  }
+
+  .radio:has(input:checked) {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .radio:focus-within {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .radio input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+
+  .select-wrap select {
+    appearance: none;
+    padding-right: 1.75rem;
+    cursor: pointer;
+  }
+
+  .select-wrap__chevron {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .form__privacy {
+    max-width: 30ch;
+    color: var(--ink-3);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .form__submit {
+    min-width: 13.5rem;
+  }
+
+  .spinner {
+    display: none;
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 1.5px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .form__submit[data-loading='true'] .spinner {
+    display: block;
+  }
+
+  .form__submit[data-loading='true'] .form__arrow {
+    display: none;
+  }
+
+  .form__status {
+    min-height: 1.4em;
+    margin-top: 1rem;
+    color: var(--error);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .form-success {
+    padding-top: 2rem;
+    border-top: 1px solid var(--ink);
+    animation: fade-in 0.7s var(--ease-out) both;
+  }
+
+  .form-success h3 {
+    max-width: 20ch;
+    margin-top: 1.1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .form-success h3 em {
+    font-style: italic;
+  }
+
+  .form-success > p:not(.eyebrow) {
+    max-width: 40ch;
+    margin-top: 1.25rem;
+    color: var(--ink-3);
+    line-height: 1.6;
+  }
+
+  .form-success .text-link {
+    margin-top: 2rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .form__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .form__head {
+      flex-wrap: wrap;
+      row-gap: 0.25rem;
+    }
+
+    .form__actions {
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+
+    .form__submit {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  type FieldName =
+    | 'name'
+    | 'business'
+    | 'email'
+    | 'whatsapp'
+    | 'service'
+    | 'features'
+    | 'message';
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+
+  if (form) {
+    const successPanel = document.querySelector<HTMLElement>('[data-form-success]');
+    const successName = document.querySelector<HTMLElement>('[data-success-name]');
+    const status = form.querySelector<HTMLElement>('[data-form-status]');
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]');
+    const resetButton = document.querySelector<HTMLButtonElement>('[data-form-reset]');
+    const endpoint = form.dataset.endpoint?.trim() ?? '';
+    const endpointKey = form.dataset.endpointKey?.trim() ?? '';
+
+    const fields = {
+      name: form.querySelector<HTMLInputElement>('#name'),
+      business: form.querySelector<HTMLInputElement>('#business'),
+      email: form.querySelector<HTMLInputElement>('#email'),
+      whatsapp: form.querySelector<HTMLInputElement>('#whatsapp'),
+      service: form.querySelector<HTMLSelectElement>('#service'),
+      message: form.querySelector<HTMLTextAreaElement>('#message'),
+    };
+
+    const featureInputs = Array.from(
+      form.querySelectorAll<HTMLInputElement>('input[name="features"]'),
+    );
+
+    const fieldOrder: FieldName[] = [
+      'name',
+      'business',
+      'email',
+      'whatsapp',
+      'service',
+      'features',
+      'message',
+    ];
+
+    const validations: Record<FieldName, () => string> = {
+      name: () =>
+        (fields.name?.value.trim().length ?? 0) >= 2
+          ? ''
+          : 'Ingresá tu nombre y apellido.',
+      business: () =>
+        (fields.business?.value.trim().length ?? 0) >= 2
+          ? ''
+          : 'Ingresá el nombre de tu negocio.',
+      email: () => {
+        const value = fields.email?.value.trim() ?? '';
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)
+          ? ''
+          : 'Ingresá un email válido.';
+      },
+      whatsapp: () => {
+        const value = fields.whatsapp?.value.trim() ?? '';
+        const digits = value.replace(/\D/g, '');
+        return /^[\d\s()+.-]+$/.test(value) && digits.length >= 8 && digits.length <= 15
+          ? ''
+          : 'Ingresá un número de WhatsApp válido.';
+      },
+      service: () =>
+        fields.service?.value ? '' : 'Elegí el servicio que te interesa.',
+      features: () =>
+        featureInputs.some((input) => input.checked)
+          ? ''
+          : 'Seleccioná al menos una funcionalidad o elegí “Necesito asesoramiento”.',
+      message: () =>
+        fields.message?.value.trim()
+          ? ''
+          : 'Contame un poco más sobre tu negocio.',
+    };
+
+    const getError = (name: FieldName) =>
+      form.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+
+    const getControl = (name: FieldName): HTMLElement | null => {
+      if (name === 'features') {
+        return form.querySelector<HTMLElement>('[data-field="features"]');
+      }
+      return form.querySelector<HTMLElement>(
+        `[data-field="${name}"] :is(input, select, textarea)`,
+      );
+    };
+
+    const focusField = (name: FieldName) => {
+      if (name === 'features') {
+        featureInputs[0]?.focus();
+        return;
+      }
+      getControl(name)?.focus();
+    };
+
+    const validateField = (name: FieldName) => {
+      const message = validations[name]();
+      const error = getError(name);
+      const control = getControl(name);
+
+      if (error) {
+        error.textContent = message;
+        error.hidden = !message;
+      }
+
+      if (control) {
+        if (message) {
+          control.setAttribute('aria-invalid', 'true');
+        } else {
+          control.removeAttribute('aria-invalid');
+        }
+      }
+
+      return !message;
+    };
+
+    const validateAll = () => {
+      let firstInvalid: FieldName | null = null;
+
+      for (const name of fieldOrder) {
+        if (!validateField(name) && !firstInvalid) {
+          firstInvalid = name;
+        }
+      }
+
+      if (firstInvalid) {
+        focusField(firstInvalid);
+      }
+
+      return !firstInvalid;
+    };
+
+    const setLoading = (loading: boolean) => {
+      if (submit) {
+        submit.disabled = loading;
+        submit.dataset.loading = String(loading);
+      }
+      if (submitLabel) {
+        submitLabel.textContent = loading ? 'Enviando consulta…' : 'Enviar consulta';
+      }
+      form.setAttribute('aria-busy', String(loading));
+    };
+
+    const showSuccess = (name: string) => {
+      const firstName = name.trim().split(/\s+/)[0] || 'gracias';
+      if (successName) {
+        successName.textContent = firstName;
+      }
+      if (status) {
+        status.textContent = '';
+      }
+      form.hidden = true;
+      if (successPanel) {
+        successPanel.hidden = false;
+        successPanel.focus();
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const honeypot = form.querySelector<HTMLInputElement>('input[name="_gotcha"]');
+      if (honeypot?.value) {
+        showSuccess(fields.name?.value ?? '');
+        return;
+      }
+
+      if (!validateAll()) {
+        if (status) {
+          status.textContent = 'Revisá los campos marcados antes de enviar.';
+        }
+        return;
+      }
+
+      if (status) {
+        status.textContent = '';
+      }
+      setLoading(true);
+
+      const formData = new FormData(form);
+      const features = formData.getAll('features').map(String);
+      const data = Object.fromEntries(formData.entries());
+      delete data._gotcha;
+      delete data.features;
+
+      const payload = {
+        ...data,
+        features: features.join(', '),
+        page: window.location.href,
+        submittedAt: new Date().toISOString(),
+        _subject: `Nueva consulta — ${data.name ?? 'Sitio web'}`,
+        ...(endpointKey ? { endpoint_key: endpointKey } : {}),
+      };
+
+      try {
+        if (endpoint) {
+          const controller = new AbortController();
+          const timeout = window.setTimeout(() => controller.abort(), 15000);
+
+          try {
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+              body: JSON.stringify(payload),
+              signal: controller.signal,
+            });
+
+            if (!response.ok) {
+              throw new Error(`Form endpoint respondió ${response.status}`);
+            }
+          } finally {
+            window.clearTimeout(timeout);
+          }
+        } else {
+          // Modo demostración: configurar PUBLIC_FORM_ENDPOINT para envíos reales.
+          await new Promise((resolve) => setTimeout(resolve, 1100));
+          console.info('[Contact form] Envío simulado. Payload:', payload);
+        }
+
+        showSuccess(String(data.name ?? ''));
+      } catch (error) {
+        console.error(error);
+        if (status) {
+          const isTimeout = error instanceof DOMException && error.name === 'AbortError';
+          status.textContent = isTimeout
+            ? 'El envío tardó demasiado. Revisá tu conexión e intentá de nuevo, o escribime por WhatsApp.'
+            : 'No pudimos enviar la consulta. Intentá de nuevo o escribime por WhatsApp.';
+        }
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    form.addEventListener('focusout', (event) => {
+      const target = event.target;
+      if (
+        !(target instanceof HTMLInputElement) &&
+        !(target instanceof HTMLSelectElement) &&
+        !(target instanceof HTMLTextAreaElement)
+      ) {
+        return;
+      }
+
+      if (target.name === 'features') {
+        validateField('features');
+        return;
+      }
+
+      if (target.name in validations && target.value.trim()) {
+        validateField(target.name as FieldName);
+      }
+    });
+
+    form.addEventListener('input', (event) => {
+      const target = event.target;
+      if (
+        !(target instanceof HTMLInputElement) &&
+        !(target instanceof HTMLSelectElement) &&
+        !(target instanceof HTMLTextAreaElement)
+      ) {
+        return;
+      }
+
+      if (target.name === 'features') {
+        const error = getError('features');
+        if (error && !error.hidden) {
+          validateField('features');
+        }
+        return;
+      }
+
+      if (target.name in validations) {
+        const name = target.name as FieldName;
+        const error = getError(name);
+        if (error && !error.hidden) {
+          validateField(name);
+        }
+      }
+    });
+
+    resetButton?.addEventListener('click', () => {
+      form.reset();
+      for (const name of fieldOrder) {
+        const error = getError(name);
+        if (error) {
+          error.textContent = '';
+          error.hidden = true;
+        }
+        getControl(name)?.removeAttribute('aria-invalid');
+      }
+      if (status) {
+        status.textContent = '';
+      }
+      if (successPanel) {
+        successPanel.hidden = true;
+      }
+      form.hidden = false;
+      fields.name?.focus();
+    });
+
+    document
+      .querySelectorAll<HTMLElement>('[data-preselect-service]')
+      .forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          const service = trigger.dataset.preselectService;
+          if (service && fields.service) {
+            fields.service.value = service;
+            const error = getError('service');
+            if (error && !error.hidden) {
+              validateField('service');
+            }
+          }
+        });
+      });
+  }
+</script>

@@ -1,0 +1,166 @@
+---
+import { navItems, siteConfig } from '../config';
+import IconArrow from './IconArrow.astro';
+---
+
+<header class="site-header" data-header>
+  <div class="container header__inner">
+    <a class="brand" href="#inicio" aria-label="Alan Otero, volver al inicio">
+      <span class="brand__mark" aria-hidden="true">AO</span>
+      <span class="brand__name">{siteConfig.name}</span>
+    </a>
+
+    <p class="header__tagline eyebrow" aria-hidden="true">{siteConfig.tagline}</p>
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      {navItems.map((item) => (
+        <a class="header__link" href={item.href}>{item.label}</a>
+      ))}
+      <a class="header__contact" href="#contacto">
+        Contacto
+        <IconArrow />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    padding-block: 1.15rem;
+    transition: padding 0.5s var(--ease-out);
+  }
+
+  .site-header::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: var(--line);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s var(--ease-out);
+  }
+
+  .site-header.is-scrolled {
+    padding-block: 0.8rem;
+  }
+
+  .site-header.is-scrolled::after {
+    transform: scaleX(1);
+  }
+
+  .header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    justify-self: start;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .brand__name {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .header__tagline {
+    color: var(--ink-3);
+    justify-self: center;
+    white-space: nowrap;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .header__link {
+    position: relative;
+    padding-block: 0.25rem;
+  }
+
+  .header__link::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  .header__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .header__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding-bottom: 0.15rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .header__contact :global(svg) {
+    width: 0.8rem;
+    height: 0.8rem;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .header__contact:hover :global(svg) {
+    transform: translate(0.15rem, -0.15rem);
+  }
+
+  @media (max-width: 960px) {
+    .header__inner {
+      grid-template-columns: 1fr auto;
+    }
+
+    .header__tagline {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .header__nav a:not(.header__contact) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .brand__name {
+      display: none;
+    }
+  }
+</style>

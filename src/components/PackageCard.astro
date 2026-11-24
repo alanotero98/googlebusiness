@@ -1,0 +1,373 @@
+---
+import IconArrow from './IconArrow.astro';
+
+const services = [
+  {
+    number: '01',
+    name: 'Landing Page',
+    price: 'Desde $280.000 ARS',
+    description:
+      'Una página diseñada para presentar un negocio, destacar sus servicios y generar consultas.',
+    featuresLabel: 'Posibles funcionalidades',
+    features: [
+      'Diseño responsive.',
+      'Formularios de contacto.',
+      'Integración con WhatsApp.',
+      'Reservas online como adicional.',
+      'SEO básico.',
+    ],
+  },
+  {
+    number: '02',
+    name: 'Sitio web institucional',
+    price: 'Desde $380.000 ARS',
+    description: 'Sitio web profesional de tres secciones: Inicio, Nosotros y Servicios.',
+    featuresLabel: 'Posibles funcionalidades',
+    features: [
+      'Diseño responsive.',
+      'Formularios de contacto.',
+      'Integración con WhatsApp.',
+      'Reservas online como adicional.',
+      'SEO básico.',
+    ],
+  },
+  {
+    number: '03',
+    name: 'Tienda online',
+    price: 'Desde $450.000 ARS',
+    description:
+      'Una solución de comercio electrónico para publicar productos y recibir pedidos.',
+    featuresLabel: 'Características',
+    features: [
+      'Catálogo de productos.',
+      'Carrito de compras.',
+      'Gestión de productos.',
+      'Gestión de pedidos.',
+      'Integración de pagos según alcance.',
+    ],
+  },
+  {
+    number: '04',
+    name: 'Tienda online premium',
+    price: 'Presupuesto personalizado según alcance',
+    description: 'Una solución de comercio electrónico más completa.',
+    featuresLabel: 'Características',
+    features: [
+      'Catálogo avanzado.',
+      'Categorías y filtros.',
+      'Variantes de productos.',
+      'Integración de pagos y envíos.',
+      'Automatizaciones.',
+      'Funcionalidades personalizadas.',
+    ],
+  },
+];
+---
+
+<section class="package" id="servicios-principales" aria-label="Servicios">
+  <div class="container">
+    <div class="package__head" data-reveal>
+      <p class="eyebrow">(03) — Servicios</p>
+      <p class="eyebrow package__count">04 / 04</p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((service, index) => (
+        <article
+          class="package-card service-card"
+          data-reveal
+          style={`--reveal-delay: ${100 + index * 70}ms`}
+        >
+          <span class="package-card__mark package-card__mark--tl" aria-hidden="true"></span>
+          <span class="package-card__mark package-card__mark--tr" aria-hidden="true"></span>
+          <span class="package-card__mark package-card__mark--bl" aria-hidden="true"></span>
+          <span class="package-card__mark package-card__mark--br" aria-hidden="true"></span>
+
+          <header class="package-card__header">
+            <div>
+              <p class="package-card__label">
+                <span class="package-card__dot" aria-hidden="true"></span>
+                Servicio {service.number}
+              </p>
+              <h3 class="package-card__title">{service.name}</h3>
+            </div>
+
+            <div class="package-card__seal" aria-hidden="true">
+              <span class="package-card__seal-main">{service.number}</span>
+              <span class="package-card__seal-sub">Servicio</span>
+            </div>
+          </header>
+
+          <p class="service-card__description">{service.description}</p>
+
+          <p class="service-card__price">{service.price}</p>
+
+          <p class="service-card__features-label">{service.featuresLabel}</p>
+          <ul class="service-card__features">
+            {service.features.map((feature) => <li>{feature}</li>)}
+          </ul>
+
+          <footer class="package-card__footer package-card__footer--single">
+            <a
+              class="button package-card__cta"
+              href="#contacto"
+              data-preselect-service={service.name}
+            >
+              Consultar
+              <IconArrow />
+            </a>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .package {
+    padding-bottom: var(--section-y);
+  }
+
+  .package__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    margin-bottom: clamp(1.75rem, 4vw, 3rem);
+    color: var(--ink-3);
+  }
+
+  .package__count {
+    color: var(--ink-4);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3.5vw, 3rem);
+  }
+
+  .package-card {
+    position: relative;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    padding: clamp(1.35rem, 4.5vw, 4.25rem);
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .package-card__mark {
+    position: absolute;
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 0 solid var(--ink);
+    pointer-events: none;
+  }
+
+  .package-card__mark--tl {
+    top: -0.9rem;
+    left: -0.9rem;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .package-card__mark--tr {
+    top: -0.9rem;
+    right: -0.9rem;
+    border-top-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .package-card__mark--bl {
+    bottom: -0.9rem;
+    left: -0.9rem;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .package-card__mark--br {
+    bottom: -0.9rem;
+    right: -0.9rem;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .package-card__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .package-card__label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .package-card__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .package-card__title {
+    max-width: 18ch;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    font-family: var(--font-serif);
+    font-size: clamp(1.9rem, 4.2vw, 4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .package-card__seal {
+    display: grid;
+    place-content: center;
+    gap: 0.2rem;
+    width: clamp(4.5rem, 7.5vw, 6.5rem);
+    aspect-ratio: 1;
+    border: 1px solid var(--ink);
+    text-align: center;
+  }
+
+  .package-card__seal-main {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1;
+  }
+
+  .package-card__seal-sub {
+    color: var(--ink-3);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .service-card__description {
+    max-width: 42ch;
+    color: var(--ink-2);
+    font-size: 1.02rem;
+    line-height: 1.62;
+    text-wrap: pretty;
+  }
+
+  .service-card__price {
+    max-width: 40ch;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    font-family: var(--font-serif);
+    font-size: clamp(1.22rem, 1.8vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .service-card__features-label {
+    margin-top: clamp(1.5rem, 2.5vw, 2rem);
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .service-card__features {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+
+  .service-card__features li {
+    position: relative;
+    padding-left: 1.05rem;
+    color: var(--ink-3);
+    font-size: 0.97rem;
+    line-height: 1.58;
+  }
+
+  .service-card__features li::before {
+    content: '';
+    position: absolute;
+    top: 0.68em;
+    left: 0;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--ink-4);
+  }
+
+  .package-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--ink);
+  }
+
+  .service-card .package-card__footer {
+    margin-top: auto;
+  }
+
+  .package-card__footer--single {
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 900px) {
+    .package-card__mark {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .package-card__seal {
+      display: none;
+    }
+
+    .package-card__header {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .package-card {
+      padding: 1.35rem 1.15rem;
+    }
+
+    .package-card__title {
+      max-width: 100%;
+    }
+
+    .package-card__cta {
+      width: 100%;
+    }
+
+    .package-card__footer--single {
+      justify-content: stretch;
+    }
+  }
+</style>

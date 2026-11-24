@@ -1,0 +1,272 @@
+---
+interface AdditionalService {
+  number: string;
+  name: string;
+  price?: string;
+  description?: string;
+  features?: string[];
+  featurePrices?: Record<string, string>;
+}
+
+const additionalServices: AdditionalService[] = [
+  {
+    number: '01',
+    name: 'Reservas online',
+    price: 'Desde $100.000 ARS',
+    features: [
+      'Calendario de disponibilidad.',
+      'Selección de fechas y horarios.',
+      'Formularios de reserva.',
+      'Confirmaciones.',
+      'Integración con Google Calendar.',
+    ],
+  },
+  {
+    number: '02',
+    name: 'Automatizaciones Google',
+    featurePrices: {
+      'Google Sheets.': 'Desde $60.000 ARS',
+      'Google Calendar.': 'Desde $60.000 ARS',
+      'Google Apps Script.': 'Desde $100.000 ARS',
+    },
+    features: [
+      'Google Sheets.',
+      'Google Calendar.',
+      'Google Forms.',
+      'Google Apps Script.',
+      'Sincronización de información.',
+      'Automatización de tareas.',
+    ],
+  },
+  {
+    number: '03',
+    name: 'Google Business Profile',
+    price: 'Desde $90.000 ARS',
+    description:
+      'Configuración, optimización y puesta a punto del perfil comercial para mejorar la presencia del negocio en Google Maps y los resultados locales.',
+  },
+];
+---
+
+<section class="additional" id="soluciones" aria-labelledby="additional-title">
+  <div class="container">
+    <div class="additional__head" data-reveal>
+      <p class="eyebrow">(04) — Soluciones adicionales</p>
+      <p class="eyebrow additional__count">03 / 03</p>
+    </div>
+
+    <div class="additional__intro" data-reveal style="--reveal-delay: 80ms">
+      <h2 class="additional__title" id="additional-title">
+        Tu sitio web puede hacer <em>mucho más.</em>
+      </h2>
+      <p class="additional__lead">
+        Incorporamos herramientas e integraciones para conectar tu presencia digital con los
+        procesos de tu negocio.
+      </p>
+    </div>
+
+    <div class="additional__grid">
+      {additionalServices.map((service, index) => (
+        <article
+          class="additional-card"
+          data-reveal
+          style={`--reveal-delay: ${160 + index * 70}ms`}
+        >
+          <p class="additional-card__label">
+            <span class="additional-card__number" aria-hidden="true">{service.number}</span>
+            Adicional {service.number}
+          </p>
+          <h3 class="additional-card__title">{service.name}</h3>
+          {service.price && <p class="additional-card__price">{service.price}</p>}
+          {service.description && <p class="additional-card__text">{service.description}</p>}
+          {service.features && (
+            <ul class="additional-card__features">
+              {service.features.map((feature) => (
+                <li>
+                  {feature}
+                  {service.featurePrices?.[feature] && (
+                    <span class="additional-card__feature-price">
+                      {service.featurePrices[feature]}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <p class="additional__note" data-reveal style="--reveal-delay: 300ms">
+      Las automatizaciones e integraciones se cotizan según las necesidades del proyecto. Google
+      Business Profile también puede contratarse de manera independiente.
+    </p>
+  </div>
+</section>
+
+<style>
+  .additional {
+    padding-bottom: var(--section-y);
+  }
+
+  .additional__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-3);
+  }
+
+  .additional__count {
+    color: var(--ink-4);
+  }
+
+  .additional__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+  }
+
+  .additional__title {
+    max-width: 20ch;
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 5.8vw, 5.5rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .additional__title em {
+    font-style: italic;
+    letter-spacing: -0.015em;
+  }
+
+  .additional__lead {
+    max-width: 60ch;
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    color: var(--ink-3);
+    font-size: clamp(1.06rem, 1.2vw, 1.18rem);
+    line-height: 1.68;
+    text-wrap: pretty;
+  }
+
+  .additional__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+
+  .additional-card {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .additional-card__label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .additional-card__number {
+    color: var(--ink-4);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .additional-card__title {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .additional-card__price {
+    margin-top: 0.75rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .additional-card__text {
+    max-width: 38ch;
+    margin-top: 0.85rem;
+    color: var(--ink-3);
+    font-size: 1.02rem;
+    line-height: 1.62;
+    text-wrap: pretty;
+  }
+
+  .additional-card__features {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .additional-card__features li {
+    position: relative;
+    padding-left: 1.05rem;
+    color: var(--ink-3);
+    font-size: 0.97rem;
+    line-height: 1.58;
+  }
+
+  .additional-card__feature-price {
+    margin-left: 0.35rem;
+    color: var(--ink);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .additional-card__features li::before {
+    content: '';
+    position: absolute;
+    top: 0.68em;
+    left: 0;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--ink-4);
+  }
+
+  .additional__note {
+    max-width: 68ch;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-3);
+    font-size: 0.97rem;
+    line-height: 1.62;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 900px) {
+    .additional__grid {
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .additional__title {
+      max-width: 16ch;
+    }
+  }
+</style>
